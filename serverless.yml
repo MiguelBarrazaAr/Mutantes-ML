@@ -1,0 +1,18 @@
+# file: serverless.yml
+service: mutant-ml-api
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  
+functions:
+  ping:
+    handler: api-handlers/ping.handler
+    events:
+      - http:
+          path: ping
+          method: GET
+          
+plugins:
+  - serverless-offline

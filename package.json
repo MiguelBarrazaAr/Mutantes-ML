@@ -1,0 +1,27 @@
+{
+  "name": "api-demo",
+  "version": "1.0.0",
+  "description": "api prueba",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiguelBarrazaAr/api-demo.git"
+  },
+  "author": "Miguel Barraza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MiguelBarrazaAr/api-demo/issues"
+  },
+  "homepage": "https://github.com/MiguelBarrazaAr/api-demo#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1053.0",
+    "dotenv": "^10.0.0",
+    "jest": "^27.4.7"
+  }
+}
