@@ -12,11 +12,18 @@ class Analizer  {
 
     checkRow(dna) {
         // verifica todas las filas
-        console.log("inicia fila "+dna.length)
         for(let i=0; i<dna.length; i++) {
-            console.log("cantidad: "+this.cantidad+", fila: "+i+", verificacion: "+this.isRow(dna, i))
             if(this.isValid()) return true
             if(this.isRow(dna, i)) this.cantidad++;
+        }
+        return this.isValid()
+    }
+
+    checkCol(dna) {
+        // verifica todas las columnas
+        for(let i=0; i<dna[0].length; i++) {
+            if(this.isValid()) return true
+            if(this.isCol(dna, i)) this.cantidad++;
         }
         return this.isValid()
     }

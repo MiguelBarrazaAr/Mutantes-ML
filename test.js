@@ -126,6 +126,24 @@ describe('analizador de matrices mutantes', () => {
         assert.isTrue(analizer.checkRow(dna));
     });
 
+    it('valida si existe secuencia en las filas con un dna que no tiene filas validas', () => {
+        let dna = ["GCCGCC", "GGCGGC","GGGTTT","GGGTCG","TGGGTC","CTGGGT"]
+        let analizer = new Analizer()
+        assert.isFalse(analizer.checkRow(dna));
+    });
+
+    it('valida si existe secuencia en las columnas con un dna mutante', () => {
+        let dna = ["GCCGCC", "GGCGGC","GGGTTT","GGGTCG","TGGGTC","CTGGGT"]
+        let analizer = new Analizer()
+        assert.isTrue(analizer.checkCol(dna));
+    });
+
+    it('valida si existe secuencia en las columnas con un dna que no tiene columnas válidas', () => {
+        let dna = ["AAAATC", "TAAAAC", "TCAAAA", "AATCAA", "AAATCA", "ATCAAA"]
+        let analizer = new Analizer()
+        assert.isFalse(analizer.checkCol(dna));
+    });
+
 });
 
 describe('chequeador de mutantes', () => {
