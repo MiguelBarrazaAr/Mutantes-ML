@@ -66,7 +66,7 @@ class Analizer  {
 
     isOblique(dna, x, y) {
         // chequea diagonales
-        if(x<4) {
+        if(x<3) {
             // checkea diagonales inferiores:
             return this.isObliqueDown(dna, x, y)
         } else {
@@ -78,7 +78,7 @@ class Analizer  {
     isObliqueDown(dna, x, y) {
         // verifica diagonal inferior:
         // valida que no se vaya de rango
-        if(x+3 > 6 && y+3 > 6) return false
+        if(x+3 > 5 || y+3 > 5) return false
         // analizamos:
         for(let i=0; i<4; i++) {
             this.check.add(dna[x+i][y+i])
@@ -88,7 +88,15 @@ class Analizer  {
     }
 
     isObliqueUp(dna, x, y) {
-
+        // verifica diagonal superior:
+        // valida que no se vaya de rango
+        if(x-3 < 0 || y+3 > 5) return false
+        // analizamos:
+        for(let i=0; i<4; i++) {
+            this.check.add(dna[x-i][y+i])
+            if(i>0 && !this.check.ok) return false
+        }
+        return true
     }
 
     isValid() {

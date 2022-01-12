@@ -172,6 +172,8 @@ describe('analizador de matrices mutantes', () => {
         assert.isTrue(analizer.isOblique(dna, 0, 1));
         assert.isFalse(analizer.isOblique(dna, 0, 2));
         assert.isFalse(analizer.isOblique(dna, 0, 5));
+        assert.isTrue(analizer.isOblique(dna, 3, 0));
+        assert.isFalse(analizer.isOblique(dna, 4, 0));
     });
 
 });
