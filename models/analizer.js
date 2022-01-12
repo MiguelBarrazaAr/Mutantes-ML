@@ -7,7 +7,15 @@ class Analizer  {
       this.cantidad =0 // cuantas secuencias correctas existen
     }
 
+    reset() {
+        this.cantidad = 0
+    }
+
     isMutant(dna) {
+        // validamos si es mutante
+        this.checkRow(dna)
+        this.checkCol(dna)
+        return this.isValid()
     }
 
     checkRow(dna) {
@@ -54,6 +62,33 @@ class Analizer  {
       }
       this.check.reset()
       return this.check.isValid()
+    }
+
+    isOblique(dna, x, y) {
+        // chequea diagonales
+        if(x<4) {
+            // checkea diagonales inferiores:
+            return this.isObliqueDown(dna, x, y)
+        } else {
+            // checkea diagonal superior:
+            return this.isObliqueUp(dna, x, y)
+        }
+    }
+
+    isObliqueDown(dna, x, y) {
+        // verifica diagonal inferior:
+        // valida que no se vaya de rango
+        if(x+3 > 6 && y+3 > 6) return false
+        // analizamos:
+        for(let i=0; i<4; i++) {
+            this.check.add(dna[x+i][y+i])
+            if(i>0 && !this.check.ok) return false
+        }
+        return true
+    }
+
+    isObliqueUp(dna, x, y) {
+
     }
 
     isValid() {

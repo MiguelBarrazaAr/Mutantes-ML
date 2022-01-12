@@ -144,6 +144,36 @@ describe('analizador de matrices mutantes', () => {
         assert.isFalse(analizer.checkCol(dna));
     });
 
+    it('valida un dna mutante si la secuencia esta por fila o columnas', () => {
+        let dna = ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"];
+        let analizer = new Analizer()
+        assert.isTrue(analizer.isMutant(dna));
+    });
+
+    it('luego de analizar un dna se puede reiniciar los valores a inicio', () => {
+        let dna = ["AAAATC", "TAAAAC", "TCAAAA", "AATCAA", "AAATCA", "ATCAAA"]
+        let analizer = new Analizer()
+        assert.isFalse(analizer.isValid());
+        assert.equal(analizer.cantidad, 0);
+
+        analizer.isMutant(dna);
+        assert.isTrue(analizer.isValid());
+        assert.equal(analizer.cantidad, 2);
+        analizer.reset()
+        assert.isFalse(analizer.isValid());
+        assert.equal(analizer.cantidad, 0);
+    });
+
+
+    it('valida una diagonal de un dna dado un punto inicial', () => {
+        let dna = ["GTCTCA", "CGTGAC", "ATGTAA", "TAAGTA","TGACTA", "ATCAAA"];
+        let analizer = new Analizer()
+        assert.isTrue(analizer.isOblique(dna, 0, 0));
+        assert.isTrue(analizer.isOblique(dna, 0, 1));
+        assert.isFalse(analizer.isOblique(dna, 0, 2));
+        assert.isFalse(analizer.isOblique(dna, 0, 5));
+    });
+
 });
 
 describe('chequeador de mutantes', () => {
