@@ -15,6 +15,7 @@ class Analizer  {
         // validamos si es mutante
         this.checkRow(dna)
         this.checkCol(dna)
+        this.checkOblique(dna)
         return this.isValid()
     }
 
@@ -32,6 +33,19 @@ class Analizer  {
         for(let i=0; i<dna[0].length; i++) {
             if(this.isValid()) return true
             if(this.isCol(dna, i)) this.cantidad++;
+        }
+        return this.isValid()
+    }
+
+
+    checkOblique(dna) {
+        // verifica todas las diagonales
+        let len = dna.length/2
+        for(let i=0; i<len; i++) {
+            for(let j=0; j<len; j++) {
+                if(this.isValid()) return true
+                if(this.isOblique(dna, i, j)) this.cantidad++;
+            }
         }
         return this.isValid()
     }

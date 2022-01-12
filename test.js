@@ -176,6 +176,18 @@ describe('analizador de matrices mutantes', () => {
         assert.isFalse(analizer.isOblique(dna, 4, 0));
     });
 
+    it('valida todas las diagonales de un dna y responde si es mutante', () => {
+        let dna = ["GTCTCA", "CGTGAC", "ATGTAA", "TAAGTA","TGACTA", "ATCAAA"];
+        let analizer = new Analizer()
+        assert.isTrue(analizer.checkOblique(dna));
+    });
+
+    it('valida un dna con secuencia valida en forma orizontal y diagonal y responde si es mutante', () => {
+        let dna = ["ATGCTA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"];
+        let analizer = new Analizer()
+        assert.isTrue(analizer.isMutant(dna));
+    });
+
 });
 
 describe('chequeador de mutantes', () => {
