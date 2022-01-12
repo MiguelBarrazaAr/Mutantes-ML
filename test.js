@@ -2,6 +2,7 @@ var assert    = require("chai").assert;
 var isMutant = require("./models/mutantes");
 var Check  = require("./models/check");
 var Analizer = require("./models/analizer");
+var dnaValidate = require("./models/dnaValidate");
 
 describe('analizador de secuencias', () => {
   it('agrega una letra al analizador', () => {
@@ -187,6 +188,28 @@ describe('analizador de matrices mutantes', () => {
         let analizer = new Analizer()
         assert.isTrue(analizer.isMutant(dna));
     });
+
+});
+
+describe('validador de dna correctos', () => {
+  it('valida si es un dna correcto si la matriz es cuadrada de 6 x 6', () => {
+    let dna = ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"];
+    assert.isTrue(dnaValidate(dna));
+    // no es valido porque tiene 5 filas
+    let dna2 = ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA"];
+    assert.isFalse(dnaValidate(dna2));
+    // no es valido porque la ultima fila tiene 5 columnas
+    let dna3 = ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACT"];
+    assert.isFalse(dnaValidate(dna3));
+  });
+
+  it('valida si es un dna correcto si tiene solo letras correctas', () => {
+    let dna = ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"];
+    assert.isTrue(dnaValidate(dna));
+    // tiene en la ultima fila una letra "M" que es incorrecto.
+    let dna2 = ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACMG"];
+    assert.isFalse(dnaValidate(dna2));
+  });
 
 });
 
