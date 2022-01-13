@@ -13,6 +13,12 @@ functions:
       - http:
           path: ping
           method: GET
+  mutant:
+    handler: api-handlers/mutant.handler
+    events:
+      - http:
+          path: mutant
+          method: POST
           
 plugins:
   - serverless-offline
