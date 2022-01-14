@@ -55,6 +55,6 @@ Si se desea monitorizar si el servicio está operativo, el api responde a el pin
 Ejecutar un ```GET``` al siguiente endpoint:  
 ping: mutant-ml-api-dev-ping  
 [http://localhost:3000/dev/ping/](http://localhost:3000/dev/ping/)  
-[https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/mutant](https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/mutant)  
+[https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/ping](https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/ping)  
 Esto devolverá:  
 ```200 OK``` body: pong  
