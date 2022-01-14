@@ -5,13 +5,52 @@ provider:
   runtime: nodejs14.x
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.MUTANTS_TABLE}'
+      
+  environment:
+    MUTANTS_TABLE: ${self:service}-${self:provider.stage}-${self:custom.mutantsTable}
   
+resources:
+  Resources:
+    MutantsDataTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 500
+        TableName: ${self:provider.environment.MUTANTS_TABLE}
+custom:
+  mutantsTable: 'mutants'
+
+
+
 functions:
   ping:
     handler: api-handlers/ping.handler
     events:
       - http:
           path: ping
+          method: GET
+  stats:
+    handler: api-handlers/stats.handler
+    events:
+      - http:
+          path: stats
           method: GET
   mutant:
     handler: api-handlers/mutant.handler
