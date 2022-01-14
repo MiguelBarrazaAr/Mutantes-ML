@@ -1,6 +1,5 @@
 function isSquare(dna, len) {
     // verifica si el dna es una matriz cuadrada de 6x6
-    console.log("filas: "+dna.length);
     if(dna.length != len) return false;
     for(let i = 0; i < len; i++) {
         if(dna[i].length != len) return false;
