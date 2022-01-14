@@ -3,7 +3,7 @@
 - Autor: Miguel Barraza
 - Fecha de la última actualización: 14/01/2022
 - Tecnologías: Javascript, serverless, AWS, DynamoDB. Python para otros tests.
-- documentación en: https://MiguelBarrazaAr.github.io/Mutantes-ML
+- documentación en: [https://miguelbarrazaar.github.io/Mutantes-ML/](https://miguelbarrazaar.github.io/Mutantes-ML/)
 
 ## Objetivo
 
@@ -31,7 +31,7 @@ En este ejemplo decimos que es mutante porque encontramos 4 letras iguales en la
 Tomando como notación las filas como números (comenzando en 1)  
 y las columnas como letras (iniciando en a).
 
-Se puede leer la [consigna](consigna.pdf) completa en clickeando en el enlace.
+Se puede leer la [consigna](consigna.pdf) completa  clickeando en el enlace.
 
 ##  Setup requerido:
 
@@ -48,13 +48,13 @@ Debería soportarse si se corre con una versión superior. Fue probado con este 
 
 La aplicación consta de tres servicios:
 
-### ping
+### 1. ping
 
 Si se desea monitorizar si el servicio está operativo, el api responde a el ping.
 
 Ejecutar un ```GET``` al siguiente endpoint:  
 ping: mutant-ml-api-dev-ping  
 [http://localhost:3000/dev/ping/](http://localhost:3000/dev/ping/)  
-[https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/mutant)(https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/mutant)  
+[https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/mutant](https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/mutant)  
 Esto devolverá:  
 ```200 OK``` body: pong  
