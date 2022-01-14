@@ -8,9 +8,8 @@
 ## Documentación
 
 - [Desafío y tecnologías](docs/desafio.md)
-- [deploy local](docs/deploy.md)
+- [deploy local y tests](docs/deploy.md)
 - [api local](docs/api-local.md)
-- [correr los test](docs/run-tests.md)
 - [deploy en AWS](docs/deploy-aws.md)
 - [Problemas en accesibilidad](docs/issues-accessibility.md)
 - [conclusiones](docs/conclusions.md)
