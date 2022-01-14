@@ -5,6 +5,17 @@
 - Tecnologías: Javascript, serverless, AWS, DynamoDB. Python para otros tests.
 - documentación en: [https://miguelbarrazaar.github.io/Mutantes-ML/](https://miguelbarrazaar.github.io/Mutantes-ML/)
 
+## Documentación
+
+- [Desafío y tecnologías](docs/desafio.md)
+- [deploy local](docs/deploy.md)
+- [api local](docs/api-local.md)
+- [correr los test](docs/run-tests.md)
+- [deploy en AWS](docs/deploy-aws.md)
+- [Problemas en accesibilidad](docs/issues-accessibility.md)
+- [conclusiones](docs/conclusions.md)
+
+
 ## Objetivo
 
 Detectar si  una matriz de ADN corresponde al de un humano o al de un mutante. 
@@ -58,3 +69,46 @@ ping: mutant-ml-api-dev-ping
 [https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/ping](https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/ping)  
 Esto devolverá:  
 ```200 OK``` body: pong  
+
+### 2. mutant
+
+Verificación de un ADN dado.
+
+Ejecutar un ```POST``` al siguiente endpoint:  
+mutant: mutant-ml-api-dev-mutant  
+[http://localhost:3000/dev/mutant/](http://localhost:3000/dev/mutant/)  
+[https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/mutant](https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/mutant)
+con el siguiente body:
+```
+{
+  "dna": ["CGGGCC","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"] 
+}
+```
+Esto  devuelve  los siguientes status:
+
+```200 OK``` Para un ADN mutante.
+
+```403 FORBIDDEN``` Para un ADN humano.
+
+```400 BadRequest``` Para un ADN incorrecto (no tiene la cantidad de filas o columnas  correctas o no tiene las letras correctas)
+
+### 3. Stats - Estadísticas:
+
+Mostrará las estadísticas de las consultas a la api.
+
+Ejecutar un ```GET``` al siguiente endpoint:  
+stats: mutant-ml-api-dev-stats  
+[http://localhost:3000/dev/stats/](http://localhost:3000/dev/stats/)  
+[https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/stats](https://wgtofy782c.execute-api.us-east-1.amazonaws.com/dev/stats)  
+Esto devolverá lo  siguiente:  
+```200 OK```  
+Con el siguiente body response:  
+```
+{
+  "count_mutant_dna":40,
+  "count_human_dna":100,
+  "ratio":0.4
+}
+```
+
+no implementado. porque no se logró conectar con la base de datos dynamodb.
