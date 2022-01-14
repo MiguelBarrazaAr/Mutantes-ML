@@ -10,7 +10,7 @@ AWS.config.update({region: 'us-east-1'});
 
 const ddb = new AWS.DynamoDB({apiVersion: 'latest'});
 
-function dbCreate(dna, isMutant) {
+async function dbCreate(dna, isMutant) {
     const params = {
         TableName: 'mutant-ml-api-dev-mutants',
         Item: {
@@ -23,15 +23,7 @@ function dbCreate(dna, isMutant) {
         }
       };
 
-      console.log(params);
-
-      ddb.putItem(params, function(error, data) {
-        if (error) {
-          console.log("Error", error);
-        } else {
-          console.log("Success", data);
-        }
-      });
+      await ddb.putItem(params).promise();
 }
 
 
@@ -43,10 +35,10 @@ exports.handler = async (event) => {
     }
 
     if(isMutant(data.dna)) {
-        dbCreate(data.dna, true);
+        await dbCreate(data.dna, true);
         return okey();
     } else {
-        dbCreate(data.dna, false);
+        await dbCreate(data.dna, false);
         return forbiddenError();
     }
 };
