@@ -1,29 +1,24 @@
 {
-  "name": "api-demo",
-  "version": "1.0.0",
-  "description": "api prueba",
+  "name": "api-mutant-ml",
+  "version": "1.1.0",
+  "description": "api mutantes",
   "main": "server.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "./node_modules/.bin/mocha test.js --reporter spec"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MiguelBarrazaAr/api-demo.git"
+    "url": "git+https://github.com/MiguelBarrazaAr/Mutantes-ML.git"
   },
   "author": "Miguel Barraza",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MiguelBarrazaAr/api-demo/issues"
+    "url": "https://github.com/MiguelBarrazaAr/Mutantes-ML/issues"
   },
-  "homepage": "https://github.com/MiguelBarrazaAr/api-demo#readme",
+  "homepage": "https://MiguelBarrazaAr.github.io/Mutantes-ML",
   "dependencies": {
-    "chai": "^4.3.4",
+    "chai": "^4.3.6",
     "express": "^4.17.2",
-    "mocha": "^9.1.3"
-  },
-  "devDependencies": {
-    "aws-sdk": "^2.1053.0",
-    "dotenv": "^10.0.0",
-    "jest": "^27.4.7"
+    "mocha": "^9.2.0"
   }
 }

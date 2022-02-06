@@ -1,8 +1,8 @@
 var assert    = require("chai").assert;
-var isMutant = require("./models/mutantes");
-var Check  = require("./models/check");
-var Analizer = require("./models/analizer");
-var dnaValidate = require("./models/dnaValidate");
+var isMutant = require("./src/models/mutantes");
+var Check  = require("./src/models/check");
+var Analizer = require("./src/models/analizer");
+var dnaValidate = require("./src/models/dnaValidate");
 
 describe('analizador de secuencias', () => {
   it('agrega una letra al analizador', () => {
