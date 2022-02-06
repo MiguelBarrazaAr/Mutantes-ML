@@ -1,44 +1,23 @@
 const isMutant = require("../models/mutantes");
 const dnaValidate  = require("../models/dnaValidate");
 // respuestas:
-const forbiddenError = require("./responses/forbiddenError");
-const badRequestError = require("./responses/badRequestError");
-const okey  = require("./responses/okey");
+const forbiddenError = require("../responses/forbiddenError");
+const badRequestError = require("../responses/badRequestError");
+const ok  = require("../responses/okey");
 
-const AWS = require('aws-sdk');
-AWS.config.update({region: 'us-east-1'});
+function mutantValidate(dna, db) {
+    if(!dnaValidate(dna)) {
+        // datos incorrectos:
+        throw new badRequestError();
+    }
 
-const ddb = new AWS.DynamoDB({apiVersion: 'latest'});
-
-async function dbCreate(dna, isMutant) {
-    const params = {
-        TableName: 'mutant-ml-api-dev-mutants',
-        Item: {
-            dna: {
-                S: dna.toString(),
-            },
-            mutant: {
-                BOOL: isMutant
-            }
-        }
-      };
-
-      await ddb.putItem(params).promise();
+    if(isMutant(dna)) {
+        db.putMutant(dna);
+        return new ok();
+    } else {
+        db.putHuman(dna);
+        throw new forbiddenError();
+    }
 }
 
-
-exports.handler = async (event) => {
-    const data = JSON.parse(event.body);
-    if(!dnaValidate(data.dna)) {
-        // datos incorrectos:
-        return badRequestError();
-    }
-
-    if(isMutant(data.dna)) {
-        await dbCreate(data.dna, true);
-        return okey();
-    } else {
-        await dbCreate(data.dna, false);
-        return forbiddenError();
-    }
-};
+module.exports = mutantValidate

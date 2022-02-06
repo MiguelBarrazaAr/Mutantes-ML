@@ -24,7 +24,7 @@ class TestEngine(unittest.TestCase):
 
     def test_alHacerUnPingRespondePong(self):
         consulta = self.get("ping")
-        self.assertEquals(consulta.text, '"pong"')
+        self.assertEquals(consulta.text, 'pong')
 
     def test_SiSeConsultaPorUnDnaValidoRespondeCodigo200(self):
         data = {"dna": ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]}
