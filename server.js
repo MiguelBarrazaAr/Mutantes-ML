@@ -84,7 +84,7 @@ router.get('/ping', function(req, res) {
 })
 
 // post  /mutant body=[dna]
-router.post('/mutant', run(['dna'], (req, res) => {
+router.post('/mutant', runAsync(['dna'], async (req, res) => {
   return mutantValidate(req.body.dna, db);
 }));
 
