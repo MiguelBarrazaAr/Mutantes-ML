@@ -11,14 +11,17 @@ class NeDBController {
         this.db.ensureIndex({fieldName: 'dna', unique: true});
     }
     
-    put(data) {
+    async put(data) {
         // inserta en bd
-        this.db.insert(data, function(err, record) {
-            if (err) {
-                return;
-            } else {
-                return record;
-            }
+        let db = this.db;
+        return new Promise(function (resolve, rejection) {
+            db.insert(data, function(err, record) {
+                if (err) {
+                    rejection(new Error("no se pudo conectar"));
+                } else {
+                    resolve(record);
+                }
+            });
         });
     }
     
@@ -45,12 +48,12 @@ class NeDBController {
         });
     }
     
-    putMutant(dna) {
-        this.put({dna:dna, mutant:true});
+    async putMutant(dna) {
+        return  this.put({dna:dna, mutant:true});
     }
     
-    putHuman(dna) {
-        this.put({dna:dna, mutant:false});
+    async putHuman(dna) {
+        return this.put({dna:dna, mutant:false});
     }
     
     async countMutant() {
