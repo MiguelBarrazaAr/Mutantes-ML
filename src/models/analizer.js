@@ -80,7 +80,7 @@ class Analizer  {
 
     isOblique(dna, x, y) {
         // chequea diagonales
-        if(x<3) {
+        if(x< dna.lenght/2) {
             // checkea diagonales inferiores:
             return this.isObliqueDown(dna, x, y)
         } else {
