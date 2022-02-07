@@ -18,6 +18,10 @@ class TestEngine(unittest.TestCase):
     def delete(self, root, data):
         return requests.delete(self.url+root, json=data)
 
+    def reset(self):
+        # resetea la bd del servidor
+        return self.delete("reset", {})
+
     def test_alHacerUnaConsultaConPingRespondeCodigo200(self):
         consulta = self.get("ping/")
         self.assertEquals(consulta.status_code, 200)
@@ -25,6 +29,24 @@ class TestEngine(unittest.TestCase):
     def test_alHacerUnPingRespondePong(self):
         consulta = self.get("ping")
         self.assertEquals(consulta.text, 'pong')
+
+    def test_alResetearDejaLasEstadisticasConSusValoresEnCero(self):
+        consulta = self.delete("reset", {})
+        self.assertEquals(consulta.status_code, 200)
+        consulta = self.get("stats")
+        self.assertEquals(consulta.status_code, 200)
+        data=consulta.json()
+        self.assertEquals(data["count_mutant_dna"], 0)
+        self.assertEquals(data["count_human_dna"], 0)
+        self.assertEquals(data["ratio"], 0)
+
+    def test_alConsultarPorUnRecursosInexistenteEsError404ResourceNotFound(self):
+        consulta = self.delete("inexistente", {})
+        self.assertEquals(consulta.status_code, 404)
+        consulta = self.post("inexistente", {})
+        self.assertEquals(consulta.status_code, 404)
+        consulta = self.get("inexistente")
+        self.assertEquals(consulta.status_code, 404)
 
     def test_SiSeConsultaPorUnDnaValidoRespondeCodigo200(self):
         data = {"dna": ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]}
@@ -45,3 +67,18 @@ class TestEngine(unittest.TestCase):
         data2 = {"dna": ["CTGCTA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTF"]}
         consulta2 = self.post("mutant/", data2)
         self.assertEquals(consulta2.status_code, 400)
+
+    def test_SiSeIntentaValidarVariasVecesElMismoAdnSoloContabilizaComoUno(self):
+        self.reset()
+
+        # agregamos ADN:
+        data = {"dna": ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]}
+        consulta = self.post("mutant/", data)
+        consulta = self.post("mutant/", data)
+        consulta = self.post("mutant/", data)
+
+
+        consulta = self.get("stats")
+        self.assertEquals(consulta.status_code, 200)
+        data=consulta.json()
+        self.assertEquals(data["count_mutant_dna"], 1)

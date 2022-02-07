@@ -1,14 +1,14 @@
-exports.handler = async (event) => {
-    const human = 100
-    const mutant = 60
-    const ratio = 0.6
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify({
-            "count_mutant_dna": mutant,
-            "count_human_dna": human,
-            "ratio": ratio
-        }),
+async function stats(db) {
+    const human = await db.countHuman();
+    const mutant = await db.countMutant();
+    return await Promise.all([human, mutant]).then((r) => {
+    const ratio =  ((mutant*100)/human)/100 || 0;
+    return  {
+        "count_mutant_dna": mutant,
+        "count_human_dna": human,
+        "ratio": ratio
     };
-    return response;
-};
+    });
+}
+
+module.exports = stats
