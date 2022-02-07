@@ -13,6 +13,7 @@
 - [deploy en AWS](docs/deploy-aws.md)
 - [Problemas en accesibilidad](docs/issues-accessibility.md)
 - [conclusiones](docs/conclusions.md)
+- [cambios](docs/update.md)
 
 
 ## Objetivo
