@@ -1,5 +1,7 @@
 var Datastore = require('nedb');
 
+class KeyError extends Error {};
+
 class NeDBController {
     constructor() {
         this.db = null;
@@ -8,16 +10,18 @@ class NeDBController {
     load() {
         // carga base de datos en memoria:
         this.db = new Datastore();
-        this.db.ensureIndex({fieldName: 'dna', unique: true});
+        //this.db.ensureIndex({fieldName: 'dna', unique: true});
     }
     
     put(data) {
         // inserta en bd
         this.db.insert(data, function(err, record) {
             if (err) {
-                return;
+                throw new Error("no se pudo conectar a  bd");
             } else {
-                return record;
+                console.log("insertado");
+                console.log(record);
+                return record;
             }
         });
     }
@@ -45,12 +49,16 @@ class NeDBController {
         });
     }
     
-    putMutant(dna) {
-        this.put({dna:dna, mutant:true});
+    async putMutant(dna) {
+        return await this.count({dna:dna}).then(function (num) {
+            if(num==0) this.put({dna:dna, mutant:true});
+        });
     }
     
-    putHuman(dna) {
-        this.put({dna:dna, mutant:false});
+    async putHuman(dna) {
+        return await this.count({dna:dna}).then(function (num) {
+            if(num==0) this.put({dna:dna, mutant:false});
+        });
     }
     
     async countMutant() {
